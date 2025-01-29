@@ -44,7 +44,7 @@ public class LoginTest extends BaseTest {
     @Test(dataProvider = "LoginData", testName = "Invalid login data", description = "Check that user cannot login" +
             " with invalid data")
     @Description("Negative login check")
-    public void invalidLogin(String user, String password, String expectedMessage) {
+    public void checkInvalidLogin(String user, String password, String expectedMessage) {
         loginStep.openLoginPage()
                 .enterEmail(user)
                 .enterPassword(password)

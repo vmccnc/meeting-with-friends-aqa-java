@@ -1,4 +1,4 @@
-package propertyUtils;
+package utils.propertyUtils;
 
 
 import java.io.IOException;

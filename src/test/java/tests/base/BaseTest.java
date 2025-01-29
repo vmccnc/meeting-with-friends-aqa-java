@@ -1,26 +1,23 @@
 package tests.base;
 
+import driver.DriverCreation;
 import driver.DriverTypes;
 import io.qameta.allure.Description;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Listeners;
-import org.testng.annotations.Parameters;
-
+import org.testng.ITestResult;
+import org.testng.annotations.*;
 import pages.AccountPage;
 import pages.HomePage;
 import pages.LoginPage;
-import propertyUtils.PropertyReader;
+import utils.allure.AllureUtils;
+import utils.propertyUtils.PropertyReader;
 import steps.AccountStep;
 import steps.HomeStep;
 import steps.LoginStep;
-import testngUtils.TestListener;
+import utils.testngUtils.TestListener;
 
 import static driver.DriverCreation.quitWebDriver;
-import static driver.DriverCreation.startWebDriver;
-import static driver.DriverTypes.CHROME;
 
 @Log4j2
 @Listeners(TestListener.class)
@@ -41,12 +38,12 @@ public abstract class BaseTest {
     @Parameters("browser")
     @BeforeTest(alwaysRun = true)
     @Description("Opening browser")
-    protected void setUp() {
-        log.info("Starting browser");
-        driver = startWebDriver(System.getProperties().containsKey("config")
-                ? DriverTypes.valueOf(PropertyReader.getProperty("browser").toUpperCase())
-                : CHROME
-        );
+    protected void setUp(@Optional("chrome") String browser) {
+        log.info("Setting up browser: {}", browser);
+
+        DriverTypes driverType = DriverTypes.valueOf(browser.toUpperCase());
+        driver = DriverCreation.startWebDriver(driverType);
+
         loginPage = new LoginPage(driver, baseURL);
         homePage = new HomePage(driver, baseURL);
         loginStep = new LoginStep(driver, baseURL);
@@ -56,11 +53,21 @@ public abstract class BaseTest {
         log.info("Browser started successfully");
     }
 
+    @AfterMethod(alwaysRun = true)
+    @Description("Close browser after each test")
+    public void tearDown(ITestResult result) {
+        if (ITestResult.FAILURE == result.getStatus()) {
+            AllureUtils.takeScreenshot(driver);
+        }
+    }
+
     @AfterTest(alwaysRun = true)
     @Description("Closing browser")
-    public void tearDown() {
-        log.info("Closing browser");
-        quitWebDriver();
-        log.info("Browser closed successfully");
+    public void closeBrowser() {
+        if (driver != null) {
+            log.info("Closing browser");
+            quitWebDriver();
+            log.info("Browser closed successfully");
+        }
     }
 }

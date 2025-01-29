@@ -1,4 +1,4 @@
-package testngUtils;
+package utils.testngUtils;
 
 import io.qameta.allure.Allure;
 import org.openqa.selenium.OutputType;

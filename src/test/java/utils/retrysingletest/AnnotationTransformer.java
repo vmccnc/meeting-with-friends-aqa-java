@@ -1,4 +1,4 @@
-package retrysingletest;
+package utils.retrysingletest;
 
 import org.testng.IAnnotationTransformer;
 import org.testng.annotations.ITestAnnotation;

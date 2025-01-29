@@ -10,7 +10,7 @@ import pages.base.BasePage;
 @Log4j2
 public class AccountPage extends BasePage {
 
-    private final By SIGN_OUT_BUTTON = By.xpath("//a[contains(.,'Sign out')]");
+    private final By CREATE_MEETING_BUTTON = By.xpath("//a[contains(.,'Create meeting')]");
 
     public AccountPage(WebDriver driver, String baseURL) {
         super(driver, baseURL);
@@ -19,7 +19,8 @@ public class AccountPage extends BasePage {
     public boolean isPageOpened() {
         try {
             log.info("Checking if AccountPage is opened");
-            wait.until(ExpectedConditions.visibilityOfElementLocated(SIGN_OUT_BUTTON));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(CREATE_MEETING_BUTTON));
+            waitUntilElementBeVisible(CREATE_MEETING_BUTTON);
             waitForPageLoaded(driver);
             return true;
         } catch (TimeoutException e) {
