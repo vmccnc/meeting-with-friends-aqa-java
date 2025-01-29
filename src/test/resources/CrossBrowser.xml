@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="2" name="TestRail CrossBrowserTest" parallel="tests">
+    <listeners>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+        <listener class-name="retrysingletest.AnnotationTransformer"/>
+        <listener class-name="testngUtils.TestListener"/>
+    </listeners>
+    <test name="Chrome">
+        <classes>
+            <class name="tests.LoginTest"/>
+            <parameter name="browser" value="chrome"/>
+        </classes>
+    </test>
+    <test name="FireFox">
+        <classes>
+            <class name="tests.LoginTest"/>
+            <parameter name="browser" value="firefox"/>
+        </classes>
+    </test>
+</suite>

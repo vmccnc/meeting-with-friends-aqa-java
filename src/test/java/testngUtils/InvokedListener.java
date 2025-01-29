@@ -19,5 +19,4 @@ public class InvokedListener implements IInvokedMethodListener {
             Allure.addAttachment(testResult.getName(), new ByteArrayInputStream(((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES)));
         }
     }
-
 }
