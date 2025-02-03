@@ -1,4 +1,4 @@
-package testngUtils;
+package utils.testngUtils;
 
 import io.qameta.allure.Allure;
 import org.openqa.selenium.OutputType;
@@ -19,5 +19,4 @@ public class InvokedListener implements IInvokedMethodListener {
             Allure.addAttachment(testResult.getName(), new ByteArrayInputStream(((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES)));
         }
     }
-
 }

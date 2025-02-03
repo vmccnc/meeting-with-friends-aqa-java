@@ -1,32 +1,42 @@
-package pageobject.baseobject;
+package pages.base;
 
-import lombok.extern.log4j.Log4j;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import lombok.extern.log4j.Log4j2;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static driver.DriverCreation.getWebDriver;
-
-@Log4j
+@Log4j2
 public abstract class BasePage {
 
     protected WebDriver driver;
     protected Actions actions;
     protected WebDriverWait wait;
+    protected String baseURL;
 
-    {
-        driver = getWebDriver();
+    public BasePage(WebDriver driver, String baseURL) {
+        this.driver = driver;
+        this.baseURL = baseURL;
         actions = new Actions(driver);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    }
+
+    public void waitForPageLoaded(WebDriver driver) {
+        log.info("Waiting for page to load");
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(new ExpectedCondition<Boolean>() {
+            public Boolean apply(WebDriver driver) {
+                return Objects.requireNonNull(((JavascriptExecutor) driver)
+                                .executeScript("return document.readyState"))
+                        .toString().equals("complete");
+            }
+        });
     }
 
     protected void navigateTo(String url) {
@@ -71,52 +81,61 @@ public abstract class BasePage {
     }
 
     protected Integer getElementsCount(By by) {
+        log.info("Getting elements count for - " + by);
         return driver.findElements(by).size();
     }
 
     protected String getElementText(By by) {
+        log.info("Getting text for element - " + by);
         waitUntilElementBeVisible(by);
         return getElementText(driver.findElement(by));
     }
 
     protected String getElementText(WebElement webElement) {
+        log.info("Getting text for element - " + webElement);
         waitUntilElementBeVisible(webElement);
         return webElement.getText();
     }
 
     protected List<String> getElementTexts(By by) {
+        log.info("Getting texts for elements - " + by);
         return getElementTexts(driver.findElements(by));
     }
 
     protected List<String> getElementTexts(List<WebElement> webElements) {
+        log.info("Getting texts for elements");
         return webElements.stream().map(WebElement::getText).collect(Collectors.toList());
     }
 
     protected void clearField(WebElement element) {
+        log.info("Clearing field - " + element);
         element.sendKeys(Keys.chord(Keys.CONTROL, "a"));
         element.sendKeys(Keys.DELETE);
     }
 
     protected void clearField(By by) {
+        log.info("Clearing field - " + by);
         clearField(driver.findElement(by));
     }
 
     protected void clearField(String xpath) {
+        log.info("Clearing field - " + xpath);
         clearField(By.xpath(xpath));
     }
 
     protected void refreshPage() {
+        log.info("Refreshing page");
         driver.navigate().refresh();
     }
 
     protected void waitUntilTextToBe(By by, String expectedText) {
         log.info("Wait until text to be - " + expectedText);
-        wait.until(ExpectedConditions.textToBe(by,expectedText));
+        wait.until(ExpectedConditions.textToBe(by, expectedText));
     }
 
     protected void waitUntilTextNotToBe(By by, String expectedText) {
         log.info("Wait until text not to be - " + expectedText);
-        wait.until(ExpectedConditions.not(ExpectedConditions.textToBe(by,expectedText)));
+        wait.until(ExpectedConditions.not(ExpectedConditions.textToBe(by, expectedText)));
     }
 
     protected void waitUntilElementToBeClickable(WebElement webElement) {
@@ -130,6 +149,7 @@ public abstract class BasePage {
     }
 
     protected void waitUntilElementToBeClickable(String xpath) {
+        log.info("Wait until element to be clickable - " + xpath);
         waitUntilElementToBeClickable(By.xpath(xpath));
     }
 
@@ -144,6 +164,7 @@ public abstract class BasePage {
     }
 
     protected void waitUntilElementToBeNotClickable(String xpath) {
+        log.info("Wait until element not to be clickable - " + xpath);
         waitUntilElementToBeNotClickable(By.xpath(xpath));
     }
 
@@ -158,7 +179,7 @@ public abstract class BasePage {
     }
 
     protected void waitUntilElementBeVisible(String xpath) {
-        log.info("Wait until element to be visible - " + By.xpath(xpath));
+        log.info("Wait until element to be visible - " + xpath);
         waitUntilElementBeVisible(By.xpath(xpath));
     }
 
@@ -173,14 +194,12 @@ public abstract class BasePage {
     }
 
     protected void waitUntilElementToBeNotVisible(String xpath) {
-        waitUntilElementToBeNotVisible(xpath);
+        log.info("Wait until element to be not visible - " + xpath);
+        waitUntilElementToBeNotVisible(By.xpath(xpath));
     }
 
     protected void waitUntilAllElementsBeVisible(By by) {
         log.info("Wait until all elements to visible");
         wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElement(by)));
     }
-
-
-
 }
