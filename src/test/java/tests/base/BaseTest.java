@@ -8,8 +8,10 @@ import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import pages.AccountPage;
+import pages.EventPage;
 import pages.HomePage;
 import pages.LoginPage;
+import steps.EventStep;
 import utils.allure.AllureUtils;
 import utils.propertyUtils.PropertyReader;
 import steps.AccountStep;
@@ -30,13 +32,15 @@ public abstract class BaseTest {
     protected HomeStep homeStep;
     protected AccountPage accountPage;
     protected AccountStep accountStep;
+    protected EventPage eventPage;
+    protected EventStep eventStep;
 
     protected String user = System.getProperty("user", PropertyReader.getProperty("user"));
     protected String password = System.getProperty("password", PropertyReader.getProperty("password"));
     protected String baseURL = System.getProperty("baseURL", PropertyReader.getProperty("baseURL"));
 
     @Parameters("browser")
-    @BeforeTest(alwaysRun = true)
+    @BeforeMethod(alwaysRun = true)
     @Description("Opening browser")
     protected void setUp(@Optional("chrome") String browser) {
         log.info("Setting up browser: {}", browser);
@@ -50,20 +54,17 @@ public abstract class BaseTest {
         homeStep = new HomeStep(driver, baseURL);
         accountPage = new AccountPage(driver, baseURL);
         accountStep = new AccountStep(driver, baseURL);
+        eventPage = new EventPage(driver, baseURL);
+        eventStep = new EventStep(driver, baseURL);
         log.info("Browser started successfully");
     }
 
     @AfterMethod(alwaysRun = true)
-    @Description("Close browser after each test")
+    @Description("Close browser after each test and take screenshot if failed")
     public void tearDown(ITestResult result) {
         if (ITestResult.FAILURE == result.getStatus()) {
             AllureUtils.takeScreenshot(driver);
         }
-    }
-
-    @AfterTest(alwaysRun = true)
-    @Description("Closing browser")
-    public void closeBrowser() {
         if (driver != null) {
             log.info("Closing browser");
             quitWebDriver();
