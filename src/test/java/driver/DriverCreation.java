@@ -22,6 +22,7 @@ public class DriverCreation {
             log.info("Starting WebDriver for browser type: {}", type);
             switch (type) {
                 case CHROME:
+                    System.setProperty("webdriver.chrome.driver", "C:\\Users\\eliza\\Downloads\\chromedriver.exe");
                     ChromeOptions chromeOptions = new ChromeOptions();
                     chromeOptions.addArguments(PropertyReader.getProperty("browser.option").split(";"));
                     webDriver.set(new ChromeDriver(chromeOptions));

@@ -11,17 +11,7 @@ import tests.base.BaseTest;
 @Log4j2
 public class LoginTest extends BaseTest {
 
-    @Test(testName = "Open home page and login", description = "Check if user can login from home page")
-    @Description("Check if user can login from home page")
-    public void checkValidLogin() {
-        homePage.open()
-                .isPageOpened()
-                .clickSignInButton();
-        loginPage.isPageOpened()
-                .login(user, password);
-        Assert.assertTrue(accountPage.isPageOpened(), "Account page did not open after login");
-    }
-
+    @Owner("Elizaveta Nikolaenya")
     @Test(testName = "Open home page and login", description = "Check if user can login from home page")
     @Description("Check if user can login from home page")
     public void checkValidLogin1() {
