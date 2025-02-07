@@ -22,7 +22,7 @@ public class LoginStep {
         log.info("LoginStep initialized with driver: {}", driver);
     }
 
-    @Step("Log in to the application with valid credentials - username: {userName}, password: {password}.")
+    @Step("Log in to the application with valid credentials - username: {userName}, password.")
     public HomeStep login(String userName, String password) {
         log.info("Starting login process for user: {}", userName);
         try {

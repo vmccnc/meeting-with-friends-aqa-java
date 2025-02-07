@@ -24,17 +24,20 @@ public class DriverCreation {
                 case CHROME:
                     System.setProperty("webdriver.chrome.driver", "C:\\Users\\eliza\\Downloads\\chromedriver.exe");
                     ChromeOptions chromeOptions = new ChromeOptions();
+                    chromeOptions.addArguments("--headless");
                     chromeOptions.addArguments(PropertyReader.getProperty("browser.option").split(";"));
                     webDriver.set(new ChromeDriver(chromeOptions));
                     break;
                 case FIREFOX:
                     FirefoxOptions firefoxOptions = new FirefoxOptions();
                     firefoxOptions.addArguments(PropertyReader.getProperty("browser.option").split(";"));
+                    firefoxOptions.addArguments("--headless");
                     webDriver.set(new FirefoxDriver(firefoxOptions));
                     break;
                 case EDGE:
                     EdgeOptions edgeOptions = new EdgeOptions();
                     edgeOptions.addArguments(PropertyReader.getProperty("browser.option").split(";"));
+                    edgeOptions.addArguments("--headless");
                     webDriver.set(new EdgeDriver(edgeOptions));
                     break;
                 default:
