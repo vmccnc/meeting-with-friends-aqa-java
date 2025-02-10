@@ -21,7 +21,8 @@ public class EventMapTest extends BaseTest {
 
         loginStep.login(user, password);
 
-        eventStep.setGeolocation(52.52437, 13.41053, 1)
+        eventStep
+                .setGeolocation(52.52437, 13.41053, 1)
                 .openEventPage()
                 .clickToOpenMap()
                 .clickOnMap(100, 100);

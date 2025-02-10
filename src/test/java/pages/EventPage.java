@@ -81,6 +81,7 @@ public class EventPage extends BasePage {
     public boolean isMeetingsListDisplayed() {
         try {
             boolean isDisplayed = driver.findElement(MEETINGS_LIST).isDisplayed();
+            waitUntilElementBeVisible(MEETINGS_LIST);
             log.info("Meetings list element is displayed: {}", isDisplayed);
             return isDisplayed;
         } catch (NoSuchElementException e) {
@@ -88,5 +89,4 @@ public class EventPage extends BasePage {
             return false;
         }
     }
-
 }
