@@ -22,10 +22,9 @@ public class DriverCreation {
             log.info("Starting WebDriver for browser type: {}", type);
             switch (type) {
                 case CHROME:
-                    System.setProperty("webdriver.chrome.driver", "C:\\Users\\eliza\\Downloads\\chromedriver.exe");
                     ChromeOptions chromeOptions = new ChromeOptions();
-                    chromeOptions.addArguments("--headless");
                     chromeOptions.addArguments(PropertyReader.getProperty("browser.option").split(";"));
+                    chromeOptions.addArguments("--headless");
                     webDriver.set(new ChromeDriver(chromeOptions));
                     break;
                 case FIREFOX:

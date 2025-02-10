@@ -14,13 +14,12 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     env:
-      USER: ${{secrets.USER}}
-      PASSWORD: ${{secrets.PASSWORD}}
-      BASEURL: ${{secrets.BASEURL}}
+      USER: ${{ secrets.USER }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+      BASEURL: ${{ secrets.BASEURL }}
 
     steps:
       - uses: actions/checkout@v4
