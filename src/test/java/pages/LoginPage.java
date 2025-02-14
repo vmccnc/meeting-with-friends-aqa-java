@@ -1,6 +1,5 @@
 package pages;
 
-import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -40,7 +39,7 @@ public class LoginPage extends BasePage {
     }
 
     public LoginPage login(String userName, String password) {
-        log.info("Logging in using credentials '{}', '{}'", userName, password);
+        log.info("Logging in using credentials.");
         enter(USERNAME_INPUT, userName);
         enter(PASSWORD_INPUT, password);
         click(LOGIN_BUTTON);
@@ -69,5 +68,16 @@ public class LoginPage extends BasePage {
         log.info("Verifying error message: {}", expectedMessage);
         String actualMessage = getElementText(ERROR_MESSAGE);
         assertEquals(actualMessage, expectedMessage, "Error message does not match expected.");
+    }
+
+    public boolean isPageOpenedAfterRegistration() {
+        try {
+            log.info("Checking if RegistrationPage is opened");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(LOGIN_BUTTON));
+            return true;
+        } catch (TimeoutException e) {
+            log.error("Login page did not open: " + e.getMessage());
+            return false;
+        }
     }
 }

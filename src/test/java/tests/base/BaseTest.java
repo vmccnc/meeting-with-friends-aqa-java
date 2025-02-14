@@ -7,16 +7,10 @@ import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
-import pages.AccountPage;
-import pages.EventPage;
-import pages.HomePage;
-import pages.LoginPage;
-import steps.EventStep;
+import pages.*;
+import steps.*;
 import utils.allure.AllureUtils;
 import utils.propertyUtils.PropertyReader;
-import steps.AccountStep;
-import steps.HomeStep;
-import steps.LoginStep;
 import utils.testngUtils.TestListener;
 
 import static driver.DriverCreation.quitWebDriver;
@@ -34,6 +28,8 @@ public abstract class BaseTest {
     protected AccountStep accountStep;
     protected EventPage eventPage;
     protected EventStep eventStep;
+    protected RegistrationPage registrationPage;
+    protected RegistrationStep registrationStep;
 
     protected String user = System.getProperty("user", PropertyReader.getProperty("user"));
     protected String password = System.getProperty("password", PropertyReader.getProperty("password"));
@@ -56,6 +52,8 @@ public abstract class BaseTest {
         accountStep = new AccountStep(driver, baseURL);
         eventPage = new EventPage(driver, baseURL);
         eventStep = new EventStep(driver, baseURL);
+        registrationPage = new RegistrationPage(driver, baseURL);
+        registrationStep = new RegistrationStep(driver, baseURL);
         log.info("Browser started successfully");
     }
 

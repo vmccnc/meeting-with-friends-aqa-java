@@ -11,6 +11,7 @@ import pages.base.BasePage;
 public class HomePage extends BasePage {
 
     private final By SIGN_IN_HEADER_BUTTON = By.xpath("//a[@class='link signIn']");
+    private final By SIGN_UP_HEADER_BUTTON = By.xpath("//a[@class='link registration']");
 
     public HomePage(WebDriver driver, String baseURL) {
         super(driver, baseURL);
@@ -36,6 +37,12 @@ public class HomePage extends BasePage {
     public HomePage clickSignInButton() {
         log.info("Clicking 'Sign In' button");
         click(SIGN_IN_HEADER_BUTTON);
+        return this;
+    }
+
+    public HomePage clickSignUpButton() {
+        log.info("Clicking 'Sign Up' button");
+        click(SIGN_UP_HEADER_BUTTON);
         return this;
     }
 //
