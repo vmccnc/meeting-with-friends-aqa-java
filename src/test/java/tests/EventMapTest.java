@@ -2,6 +2,8 @@ package tests;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import lombok.extern.log4j.Log4j2;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -11,6 +13,7 @@ import tests.base.BaseTest;
 public class EventMapTest extends BaseTest {
 
     @Owner("Elizaveta Nikolaenya")
+    @Severity(SeverityLevel.CRITICAL)
     @Test(testName = "Open Street Map Test", description = "This test verifies the functionality of opening the street " +
             "map and checking its visibility.")
     @Description("The test logs into the application, sets the geolocation, opens the event page, clicks on the map," +

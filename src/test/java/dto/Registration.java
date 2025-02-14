@@ -7,11 +7,14 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 @Builder
-public class ContactRegistration {
+public class Registration {
 
     private final String name;
     private final String surname;
-    private final String email;
+    private final String username;
     private final String password;
-    private final String phone;
+    private final String birthdate;
+    private final String email;
+    private final String telephone;
+    private final String photo;
 }
