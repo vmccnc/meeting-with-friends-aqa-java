@@ -2,6 +2,8 @@ package tests;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import lombok.extern.log4j.Log4j2;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -12,6 +14,7 @@ import tests.base.BaseTest;
 public class LoginTest extends BaseTest {
 
     @Owner("Elizaveta Nikolaenya")
+    @Severity(SeverityLevel.NORMAL)
     @Test(testName = "Open home page and login", description = "Check if user can login from home page")
     @Description("Check if user can login from home page")
     public void checkValidLogin1() {
@@ -31,6 +34,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Owner("Elizaveta Nikolaenya")
+    @Severity(SeverityLevel.NORMAL)
     @Test(dataProvider = "LoginData", testName = "Invalid login data", description = "Check that user cannot login" +
             " with invalid data")
     @Description("Negative login check")
