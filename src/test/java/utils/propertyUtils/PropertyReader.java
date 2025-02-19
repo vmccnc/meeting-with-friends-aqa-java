@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public final class PropertyReader {
-    private static String propertiesPath = "/config.properties";
+    private static String propertiesPath = "/config/config.properties";
     private static volatile Properties properties;
     private static InputStream inputStream;
 

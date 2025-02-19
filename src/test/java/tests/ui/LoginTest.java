@@ -1,4 +1,4 @@
-package tests;
+package tests.ui;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.Owner;
@@ -17,7 +17,7 @@ public class LoginTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Test(testName = "Open home page and login", description = "Check if user can login from home page")
     @Description("Check if user can login from home page")
-    public void checkValidLogin1() {
+    public void checkValidLogin() {
         homeStep.openHomePage()
                 .clickSignIn();
         loginStep.login(user, password);
