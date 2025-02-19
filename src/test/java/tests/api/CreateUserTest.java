@@ -1,14 +1,13 @@
 package tests.api;
 
 import api.adapters.UserApi;
-import api.models.user.CreateUserRq;
 import api.adapters.base.BaseAPI;
+import api.models.user.CreateUserRq;
 import com.github.javafaker.Faker;
+import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import io.restassured.response.Response;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import static org.hamcrest.Matchers.equalTo;
