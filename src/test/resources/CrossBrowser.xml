@@ -10,22 +10,33 @@
     <test name="Chrome">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="tests.LoginTest"/>
-            <class name="tests.EventMapTest"/>
+            <class name="tests.ui.LoginTest"/>
+            <class name="tests.ui.EventMapTest"/>
+            <class name="tests.ui.RegistrationTest"/>
+            <class name="tests.api.CreateUserTest"/>
+            <class name="tests.api.TokenBasedAuthTest"/>
         </classes>
     </test>
 
     <test name="FireFox">
         <parameter name="browser" value="firefox"/>
         <classes>
-            <class name="tests.LoginTest"/>
+            <class name="tests.ui.LoginTest"/>
+            <class name="tests.ui.EventMapTest"/>
+            <class name="tests.ui.RegistrationTest"/>
+            <class name="tests.api.CreateUserTest"/>
+            <class name="tests.api.TokenBasedAuthTest"/>
         </classes>
     </test>
 
     <test name="Edge">
         <parameter name="browser" value="edge"/>
         <classes>
-            <class name="tests.LoginTest"/>
+            <class name="tests.ui.LoginTest"/>
+            <class name="tests.ui.EventMapTest"/>
+            <class name="tests.ui.RegistrationTest"/>
+            <class name="tests.api.CreateUserTest"/>
+            <class name="tests.api.TokenBasedAuthTest"/>
         </classes>
     </test>
 </suite>

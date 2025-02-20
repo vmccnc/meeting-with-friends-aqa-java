@@ -1,8 +1,10 @@
 package tests.base;
 
+import config.Config;
 import driver.DriverCreation;
 import driver.DriverTypes;
 import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
@@ -10,7 +12,6 @@ import org.testng.annotations.*;
 import pages.*;
 import steps.*;
 import utils.allure.AllureUtils;
-import utils.propertyUtils.PropertyReader;
 import utils.testngUtils.TestListener;
 
 import static driver.DriverCreation.quitWebDriver;
@@ -31,19 +32,25 @@ public abstract class BaseTest {
     protected RegistrationPage registrationPage;
     protected RegistrationStep registrationStep;
 
-    protected String user = System.getProperty("user", PropertyReader.getProperty("user"));
-    protected String password = System.getProperty("password", PropertyReader.getProperty("password"));
-    protected String baseURL = System.getProperty("baseURL", PropertyReader.getProperty("baseURL"));
+    protected String user = Config.getUser();
+    protected String password = Config.getPassword();
+    protected String baseURL = Config.getBaseURL();
 
     @Parameters("browser")
     @BeforeMethod(alwaysRun = true)
     @Description("Opening browser")
+    @Step("Open browser")
     protected void setUp(@Optional("chrome") String browser) {
         log.info("Setting up browser: {}", browser);
 
         DriverTypes driverType = DriverTypes.valueOf(browser.toUpperCase());
         driver = DriverCreation.startWebDriver(driverType);
 
+        initPagesAndSteps();
+        log.info("Browser started successfully");
+    }
+
+    private void initPagesAndSteps() {
         loginPage = new LoginPage(driver, baseURL);
         homePage = new HomePage(driver, baseURL);
         loginStep = new LoginStep(driver, baseURL);
@@ -54,11 +61,11 @@ public abstract class BaseTest {
         eventStep = new EventStep(driver, baseURL);
         registrationPage = new RegistrationPage(driver, baseURL);
         registrationStep = new RegistrationStep(driver, baseURL);
-        log.info("Browser started successfully");
     }
 
     @AfterMethod(alwaysRun = true)
     @Description("Close browser after each test and take screenshot if failed")
+    @Step("Close browser")
     public void tearDown(ITestResult result) {
         if (ITestResult.FAILURE == result.getStatus()) {
             AllureUtils.takeScreenshot(driver);
