@@ -9,8 +9,6 @@
 name: Test Runner
 
 on:
-  schedule:
-    - cron: '0 15 * * 1'
   push:
     branches: [ "master" ]
 
